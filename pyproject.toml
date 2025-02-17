@@ -4,16 +4,23 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pandas>=2.2.3",
+    "pydantic>=2.10.6",
+]
 
 [dependency-groups]
 dev = [
     "basedpyright==1.27.1",
+    "pandas-stubs>=2.2.3.241126",
     "ruff==0.9.6",
 ]
 
 [tool.basedpyright]
 typeCheckingMode = "recommended"
+reportUnknownVariableType = "none"
+reportUnknownMemberType = "none"
+reportUnknownArgumentType = "none"
 
 [tool.ruff]
 preview = true

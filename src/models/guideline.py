@@ -1,0 +1,9 @@
+from pydantic import BaseModel
+
+
+class Guideline(BaseModel):
+    id: str | None
+    short: str | None
+    long: str | None
+    level: str | None
+    context: str | None
