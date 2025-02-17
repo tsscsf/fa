@@ -14,3 +14,22 @@ dev = [
 
 [tool.basedpyright]
 typeCheckingMode = "recommended"
+
+[tool.ruff]
+preview = true
+
+# Enable specific rule categories
+select = [
+  "E",   # pycodestyle
+  "F",   # Pyflakes
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+  "SIM", # flake8-simplify
+  "I",   # isort
+  "N",   # naming
+  "A",   # flake8-builtins
+  "T",   # flake8-print
+]
+
+# Ignore specific rules
+ignore = ["F841", "F401", "E501", "F701"]
