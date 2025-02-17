@@ -9,4 +9,8 @@ dependencies = []
 [dependency-groups]
 dev = [
     "basedpyright==1.27.1",
+    "ruff==0.9.6",
 ]
+
+[tool.basedpyright]
+typeCheckingMode = "recommended"
