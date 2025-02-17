@@ -1,12 +1,14 @@
 from abc import ABC, abstractmethod
 
+from models.few_shot import FewShotExample
 from models.guideline import Guideline
 
 
 class Framework(ABC):
-    def __init__(self):
+    @abstractmethod
+    def guidelines(self) -> list[Guideline]:
         pass
 
     @abstractmethod
-    def guidelines(self) -> list[Guideline]:
+    def few_shots(self) -> list[FewShotExample]:
         pass

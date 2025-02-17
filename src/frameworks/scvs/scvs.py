@@ -1,9 +1,13 @@
+import json
 from typing import override
 
 import pandas as pd
 
 from frameworks.framework import Framework
+from models.few_shot import FewShotExample
 from models.guideline import Guideline
+
+FEW_SHOTS = {}
 
 
 class SCVS(Framework):
@@ -61,3 +65,15 @@ class SCVS(Framework):
                 continue
 
         return guidelines
+
+    @override
+    def few_shots(self) -> list[FewShotExample]:
+        examples: list[FewShotExample] = []
+        with open("data/few_shots.json") as f:
+            few_shots_data = json.load(f)  # pyright: ignore[reportAny]
+
+        for i in few_shots_data:  # pyright: ignore[reportAny]
+            model = FewShotExample.model_validate(i)
+            examples.append(model)
+
+        return examples

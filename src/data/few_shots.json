@@ -1,0 +1,33 @@
+[
+  {
+    "input": "Component can be analyzed with linters and/or static analysis tools",
+    "output": [
+      "Component can be analyzed with linters",
+      "Component can be analyzed with static analysis tools"
+    ]
+  },
+  {
+    "input": "Checksums of all first-party and third-party components are documented for every build",
+    "output": [
+      "Checksums of all first-party components are documented for every build",
+      "Checksums of all third-party components are documented for every build"
+    ]
+  },
+  {
+    "input": "Compilers, version control clients, development utilities, and software development kits are analyzed and monitored for tampering, trojans, or malicious code",
+    "output": [
+      "Compilers are analyzed for tampering",
+      "Compilers are analyzed for trojans",
+      "Compilers are analyzed for malicious code",
+      "Version control clients are analyzed for tampering",
+      "Version control clients are analyzed for trojans",
+      "Version control clients are analyzed for malicious code",
+      "Development utilities are analyzed for tampering",
+      "Development utilities are analyzed for trojans",
+      "Development utilities are analyzed for malicious code",
+      "Software development kits are analyzed for tampering",
+      "Software development kits are analyzed for trojans",
+      "Software development kits are analyzed for malicious code"
+    ]
+  }
+]

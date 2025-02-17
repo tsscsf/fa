@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "openai>=1.63.1",
     "pandas>=2.2.3",
     "pydantic>=2.10.6",
 ]
@@ -18,9 +19,10 @@ dev = [
 
 [tool.basedpyright]
 typeCheckingMode = "recommended"
-reportUnknownVariableType = "none"
-reportUnknownMemberType = "none"
-reportUnknownArgumentType = "none"
+# reportUnusedVariable = "none"
+# reportUnknownVariableType = "none"
+# reportUnknownMemberType = "none"
+# reportUnknownArgumentType = "none"
 
 [tool.ruff]
 preview = true
@@ -39,4 +41,4 @@ select = [
 ]
 
 # Ignore specific rules
-ignore = ["F841", "F401", "E501", "F701"]
+ignore = ["F841", "F401", "E501", "F701", "B007"]
