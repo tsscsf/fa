@@ -5,38 +5,43 @@ from models.guideline import Guideline
 
 
 class Composer:
-    def __init__(self, framework: Framework, llm: LLM):
+    def __init__(self, framework: Framework, llm: LLM) -> None:
         self._framework: Framework = framework
         self._llm: LLM = llm
 
-    def generate_sub_guidelines(self):
+    def generate_sub_guidelines(self) -> None:
         for g in self._framework.guidelines():
-            prompt = self.format_prompt(g, self._framework.few_shots())
+            prompt: str = self.format_prompt(guideline=g, examples=self._framework.few_shots())
             print(prompt)
             break
 
-    def _format(self, guideline: Guideline) -> str:
-        parts = ["Guideline:"]
+    def _format_guideline(self, guideline: Guideline) -> str:
+        parts: list[str] = ["--Full guideline--"]
         if guideline.short:
-            parts.append(guideline.short)
+            parts.append(f"Short description: {guideline.short}")
         if guideline.long:
-            parts.append(guideline.long)
+            parts.append(f"Long description: {guideline.long}")
         if guideline.context:
-            parts.append(guideline.context)
+            parts.append(f"Context: {guideline.context}")
+
+        return "\n".join(parts)
+
+    def _format_few_shot(self, example: FewShotExample) -> str:
+        parts: list[str] = []
+        parts.append(f"Input: {example.input}")
+        parts.append("Output:")
+        # Add each output line
+        parts.extend(example.output)
 
         return "\n".join(parts)
 
     def format_prompt(
         self, guideline: Guideline, examples: list[FewShotExample]
     ) -> str:
-        parts = [self._format(guideline)]
+        parts: list[str] = [self._format_guideline(guideline)]
 
-        if examples:
-            parts.append("Examples:")
-            for example in examples:
-                parts.append(f"Input: {example.input}")
-                parts.append("Output:")
-                # Add each output line
-                parts.extend(example.output)
+        parts.append("--Few-shot example(s)--")
+        for example in examples:
+            parts.append(self._format_few_shot(example))
 
         return "\n".join(parts)
