@@ -22,9 +22,11 @@ def store_generated_guidelines(
 
 
 def decompose(framework: Framework, gg: GuidelineGenerator):
+    decomposed_guidelines: list[DecomposedGuideline] = []
     for g in framework.guidelines():
         decomposed_guideline = gg.generate_sub_guidelines(g, framework.few_shots())
-        store_generated_guidelines(framework.name, [decomposed_guideline])
+        decomposed_guidelines.append(decomposed_guideline)
+        store_generated_guidelines(framework.name, decomposed_guidelines)
 
 
 def main():
