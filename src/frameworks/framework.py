@@ -12,3 +12,8 @@ class Framework(ABC):
     @abstractmethod
     def few_shots(self) -> list[FewShotExample]:
         pass
+
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        pass

@@ -77,3 +77,8 @@ class SCVS(Framework):
             examples.append(model)
 
         return examples
+
+    @property
+    @override
+    def name(self) -> str:
+        return "OWASP SCVS"
