@@ -42,6 +42,7 @@ class LLM:
                 model=self._model,
                 messages=messages,
                 response_format=self.response_format,
+                temperature=0.0,
             )
         )
         # Extract the parsed data from the first choice's message
