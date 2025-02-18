@@ -71,4 +71,4 @@ class SCVS(Framework):
     @property
     @override
     def name(self) -> str:
-        return "OWASP SCVS"
+        return "owasp-scvs"
