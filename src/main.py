@@ -3,8 +3,8 @@ import json
 import openai
 from dotenv import load_dotenv
 
-from composer.composer import Composer
 from frameworks.scvs.scvs import SCVS
+from guideline_generator.guideline_generator import GuidelineGenerator
 from llm.llm import LLM
 
 load_dotenv()  # pyright: ignore[reportUnusedCallResult]
@@ -14,18 +14,14 @@ def main():
     scvs = SCVS()
     client = openai.OpenAI()
     llm = LLM(client)
-    composer = Composer(scvs, llm)
+    gg = GuidelineGenerator(llm)
 
-    decomposed_guidelines = composer.generate_sub_guidelines()
+    for g in scvs.guidelines():
+        decomposed_guideline = gg.generate_sub_guidelines(g, scvs.few_shots())
 
-    # Convert Pydantic models to dictionaries
-    guidelines_as_dicts = [
-        guideline.model_dump() for guideline in decomposed_guidelines
-    ]
-
-    # Write to a JSON file with pretty printing
-    with open("decomposed_guidelines.json", "w") as f:
-        json.dump(guidelines_as_dicts, f, indent=4)
+        # Write to a JSON file with pretty printing
+        with open("decomposed_guidelines.json", "a") as f:
+            json.dump(decomposed_guideline.model_dump(), f, indent=4)
 
 
 if __name__ == "__main__":
