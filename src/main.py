@@ -3,6 +3,7 @@ import json
 import openai
 from dotenv import load_dotenv
 
+from frameworks.framework import Framework
 from frameworks.s2c2f.s2c2f import S2C2F
 from frameworks.scvs.scvs import SCVS
 from guideline_generator.guideline_generator import GuidelineGenerator
@@ -19,20 +20,21 @@ def store_generated_guidelines(
         json.dump(guidelines, f, indent=4)
 
 
+def decompose(framework: Framework, gg: GuidelineGenerator):
+    for g in framework.guidelines():
+        decomposed_guideline = gg.generate_sub_guidelines(g, framework.few_shots())
+        store_generated_guidelines(framework.name, [decomposed_guideline])
+
+
 def main():
     scvs = SCVS()
     client = openai.OpenAI()
     llm = LLM(client)
     gg = GuidelineGenerator(llm)
-
     s2c2f = S2C2F()
-    for g in s2c2f.guidelines():
-        decomposed_guideline = gg.generate_sub_guidelines(g, s2c2f.few_shots())
-        store_generated_guidelines(s2c2f.name, [decomposed_guideline])
 
-    for g in scvs.guidelines():
-        decomposed_guideline = gg.generate_sub_guidelines(g, scvs.few_shots())
-        store_generated_guidelines(scvs.name, [decomposed_guideline])
+    decompose(s2c2f, gg)
+    # decompose(scvs, gg)
 
 
 if __name__ == "__main__":
