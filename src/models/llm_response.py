@@ -1,12 +1,6 @@
 from pydantic import BaseModel
 
 
-class Step(BaseModel):
-    explanation: str
-    output: str
-
-
 class LLMResponse(BaseModel):
-    steps: list[Step]
+    steps: list[str]
     final_answer: list[str]
-

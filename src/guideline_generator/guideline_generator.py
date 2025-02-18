@@ -14,8 +14,10 @@ class GuidelineGenerator:
         self, guideline: Guideline, few_shots: list[FewShotExample]
     ) -> DecomposedGuideline:
         prompt: str = self._format_prompt(guideline=guideline, examples=few_shots)
-        response: list[str] = self._llm.prompt(prompt)
-        return DecomposedGuideline(original=guideline, decomposed=response)
+        response = self._llm.prompt(prompt)
+        return DecomposedGuideline(
+            original=guideline, decomposed=response.final_answer, steps=response.steps
+        )
 
     def _format_guideline(self, guideline: Guideline) -> str:
         parts: list[str] = ["--Full guideline--"]

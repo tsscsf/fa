@@ -12,3 +12,4 @@ class Guideline(BaseModel):
 class DecomposedGuideline(BaseModel):
     original: Guideline
     decomposed: list[str]
+    steps: list[str]

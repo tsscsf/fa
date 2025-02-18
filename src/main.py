@@ -18,10 +18,11 @@ def main():
 
     for g in scvs.guidelines():
         decomposed_guideline = gg.generate_sub_guidelines(g, scvs.few_shots())
-
+        json_output = decomposed_guideline.model_dump()
+        json_output["framework"] = "SCVS"
         # Write to a JSON file with pretty printing
         with open("decomposed_guidelines.json", "a") as f:
-            json.dump(decomposed_guideline.model_dump(), f, indent=4)
+            json.dump(json_output, f, indent=4)
 
 
 if __name__ == "__main__":
