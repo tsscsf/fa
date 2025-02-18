@@ -1,21 +1,23 @@
-import json
 from typing import override
 
 import pandas as pd
 
 from frameworks.framework import Framework
-from models.few_shot import FewShotExample
 from models.guideline import Guideline
 
 FEW_SHOTS = {}
 
+DATA_FILE_PATH = "data/owasp-scvs/OWASP_SCVS-1.0.csv"
+FEW_SHOTS_FILE_PATH = "data/owasp-scvs/few_shots.json"
+
 
 class SCVS(Framework):
     def __init__(self) -> None:
+        self._few_shot_file_path: str = FEW_SHOTS_FILE_PATH
         try:
-            self._csv: pd.DataFrame = pd.read_csv("data/OWASP_SCVS-1.0.csv")
+            self._csv: pd.DataFrame = pd.read_csv(DATA_FILE_PATH)
         except FileNotFoundError as e:
-            raise RuntimeError("CSV file not found at 'data/OWASP_SCVS-1.0.csv'") from e
+            raise RuntimeError(f"CSV file not found at {DATA_FILE_PATH}") from e
         except pd.errors.ParserError as e:
             raise RuntimeError("Error parsing CSV file") from e
         except Exception as e:
@@ -65,18 +67,6 @@ class SCVS(Framework):
                 continue
 
         return guidelines
-
-    @override
-    def few_shots(self) -> list[FewShotExample]:
-        examples: list[FewShotExample] = []
-        with open("data/few_shots.json") as f:
-            few_shots_data = json.load(f)  # pyright: ignore[reportAny]
-
-        for i in few_shots_data:  # pyright: ignore[reportAny]
-            model = FewShotExample.model_validate(i)
-            examples.append(model)
-
-        return examples
 
     @property
     @override

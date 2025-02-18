@@ -1,0 +1,9 @@
+[
+  {
+    "input": "Component can be analyzed with linters and/or static analysis tools",
+    "output": [
+      "Component can be analyzed with linters",
+      "Component can be analyzed with static analysis tools"
+    ]
+  }
+]
