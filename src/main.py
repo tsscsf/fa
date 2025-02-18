@@ -34,7 +34,7 @@ def main():
     s2c2f = S2C2F()
 
     decompose(s2c2f, gg)
-    # decompose(scvs, gg)
+    decompose(scvs, gg)
 
 
 if __name__ == "__main__":
