@@ -2,9 +2,7 @@ from collections.abc import Iterable
 
 import openai
 from openai.types.chat import ChatCompletionMessageParam
-from openai.types.shared_params.response_format_json_object import (
-    ResponseFormatJSONObject,
-)
+from openai.types.chat.parsed_chat_completion import ParsedChatCompletion
 
 from models.llm_response import LLMResponse
 
@@ -20,7 +18,7 @@ class LLM:
         self._client: openai.OpenAI = client
         self.system_prompt: str = DEFAULT_SYSTEM_PROMPT
         # Annotate as a type, since DEFAULT_RESPONSE_FORMAT is a class
-        self.response_format: type[ResponseFormatJSONObject] = DEFAULT_RESPONSE_FORMAT
+        self.response_format: type[LLMResponse] = DEFAULT_RESPONSE_FORMAT
 
     def prompt(self, prompt: str) -> LLMResponse:
         messages: Iterable[ChatCompletionMessageParam] = [
@@ -28,14 +26,14 @@ class LLM:
             {"role": "user", "content": prompt},
         ]
 
-        parsed_response = self._client.beta.chat.completions.parse(
+        parsed_response: ParsedChatCompletion[LLMResponse] = self._client.beta.chat.completions.parse(
             model=self._model,
             messages=messages,
             response_format=self.response_format,
         )
         # Extract the parsed data from the first choice's message
-        parsed_data = parsed_response.choices[0].message.parsed
+        parsed_data: LLMResponse | None = parsed_response.choices[0].message.parsed
 
         # Validate and load it into your LLMResponse pydantic model
-        validated_response = LLMResponse.parse_obj(parsed_data)
+        validated_response: LLMResponse = LLMResponse.model_validate(parsed_data)
         return validated_response
