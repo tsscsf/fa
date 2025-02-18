@@ -16,8 +16,9 @@ load_dotenv()  # pyright: ignore[reportUnusedCallResult]
 def store_generated_guidelines(
     framework: str, guidelines: list[DecomposedGuideline]
 ) -> None:
+    decomposed_guidelines = [g.model_dump() for g in guidelines]
     with open(f"data/{framework}/generated_guidelines.json", "w") as f:
-        json.dump(guidelines, f, indent=4)
+        json.dump(decomposed_guidelines, f, indent=4)
 
 
 def decompose(framework: Framework, gg: GuidelineGenerator):
