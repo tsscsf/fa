@@ -52,7 +52,7 @@ class S2C2F(Framework):
             guideline = Guideline(
                 id=row_dict["Requirement ID"],
                 short=row_dict["Requirement Title"],
-                long=None,
+                long=row_dict["Benefit"],
                 context=None,
                 level=row_dict["Maturity Level"],
             )

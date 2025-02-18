@@ -1,9 +1,31 @@
 [
   {
-    "input": "Component can be analyzed with linters and/or static analysis tools",
+    "input": {
+      "short_description": "Digitally sign the SBOMs you produce",
+      "long_description": "Ensures that consumers of your SBOMs can trust that the contents have not been tampered with"
+    },
+    "output": ["Digitally sign the SBOMs you produce"]
+  },
+  {
+    "input": {
+      "short_description": "Perform proactive security analysis of OSS",
+      "long_description": "Identify zero-day vulnerabilities and other threat categories (i.e. backdoors) and responsibly disclose them to the upstream OSS project"
+    },
     "output": [
-      "Component can be analyzed with linters",
-      "Component can be analyzed with static analysis tools"
+      "Perform proactive security analysis of OSS",
+      "Identify zero-day vulnerabilities",
+      "Responsibly disclose zero-day vulnerabilities to the upstream OSS project",
+      "Identify other threat categories (i.e. backdoors)",
+      "Responsibly disclose other threat categories (i.e. backdoors) to the upstream OSS project"
+    ]
+  },
+  {
+    "input": {
+      "short_description": "Use public package managers trusted by your organization (i.e. NuGet.org, npmjs.com, PyPi.org, etc.)",
+      "long_description": "Your organization benefits from the inherent security provided by the package manager"
+    },
+    "output": [
+      "Use public package managers trusted by your organization (i.e. NuGet.org, npmjs.com, PyPi.org, etc.)"
     ]
   }
 ]

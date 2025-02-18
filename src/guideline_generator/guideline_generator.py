@@ -3,6 +3,7 @@ import json
 from llm.llm import LLM
 from models.few_shot import FewShotExample
 from models.guideline import DecomposedGuideline, Guideline
+from models.prompt import PromptInput
 
 
 class GuidelineGenerator:
@@ -18,16 +19,21 @@ class GuidelineGenerator:
             original=guideline, decomposed=response.final_answer, steps=response.steps
         )
 
-    def _guideline_for_prompt(self, guideline: Guideline) -> dict[str, str]:
+    def _guideline_for_prompt(self, guideline: Guideline) -> PromptInput:
         g = guideline.model_dump()
-        g_prompt: dict[str, str] = {}
+        prompt_input = PromptInput(
+            short_description=None,
+            long_description=None,
+            context=None,
+        )
         if g["short"]:
-            g_prompt["short_description"] = g["short"]
+            prompt_input.short_description = g["short"]
         if g["long"]:
-            g_prompt["long_description"] = g["long"]
+            prompt_input.long_description = g["long"]
         if g["context"]:
-            g_prompt["context"] = g["context"]
-        return g_prompt
+            prompt_input.context = g["context"]
+
+        return prompt_input
 
     def _format_prompt(
         self, guideline: Guideline, examples: list[FewShotExample]
