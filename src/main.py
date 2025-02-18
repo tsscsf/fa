@@ -1,3 +1,6 @@
+from typing import Any
+
+
 import json
 
 import openai
@@ -16,13 +19,15 @@ def main():
     llm = LLM(client)
     gg = GuidelineGenerator(llm)
 
+    output: list[Any] = []
     for g in scvs.guidelines():
         decomposed_guideline = gg.generate_sub_guidelines(g, scvs.few_shots())
         json_output = decomposed_guideline.model_dump()
         json_output["framework"] = "SCVS"
+        output.append(json_output)
         # Write to a JSON file with pretty printing
-        with open("decomposed_guidelines.json", "a") as f:
-            json.dump(json_output, f, indent=4)
+        with open("decomposed_guidelines.json", "w") as f:
+            json.dump(output, f, indent=4)
 
 
 if __name__ == "__main__":
