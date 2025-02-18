@@ -7,18 +7,24 @@ from openai.types.chat.parsed_chat_completion import ParsedChatCompletion
 from models.llm_response import LLMResponse
 
 DEFAULT_SYSTEM_PROMPT = """
-    The user xxx.
-    """
+You are a guideline decomposition assistant. Your task is to take a given guideline that may contain compound statements or multiple components and break it down into smaller, independent guidelines. Follow these steps:
+
+1. **Analyze the Guideline:** Read the input guideline carefully and identify any compound phrases, conjunctions (like "and", "or", "and/or"), or lists that combine multiple ideas.
+2. **Decompose Step-by-Step:** Split the guideline into its individual parts, ensuring that each resulting statement clearly represents a single idea or requirement.
+3. **Preserve Meaning:** Make sure that each decomposed guideline retains the intent and meaning of the original statement.
+4. **Format the Output:** List each individual guideline on a separate line.
+
+Let's think step by step...
+"""
 DEFAULT_RESPONSE_FORMAT = LLMResponse
 
 
 class LLM:
-    def __init__(self, client: openai.OpenAI, model: str = "gpt3.5-turbo") -> None:
+    def __init__(self, client: openai.OpenAI, model: str = "gpt3.5-turbo", system_prompt: str = DEFAULT_SYSTEM_PROMPT):
         self._model: str = model
         self._client: openai.OpenAI = client
         self.system_prompt: str = DEFAULT_SYSTEM_PROMPT
-        # Annotate as a type, since DEFAULT_RESPONSE_FORMAT is a class
-        self.response_format: type[LLMResponse] = DEFAULT_RESPONSE_FORMAT
+        self.response_format = DEFAULT_RESPONSE_FORMAT  # pyright: ignore[reportUnannotatedClassAttribute]
 
     def prompt(self, prompt: str) -> LLMResponse:
         messages: Iterable[ChatCompletionMessageParam] = [
