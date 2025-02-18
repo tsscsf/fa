@@ -1,13 +1,11 @@
+import json
 from llm.llm import LLM
 from models.few_shot import FewShotExample
 from models.guideline import DecomposedGuideline, Guideline
 
 
 class GuidelineGenerator:
-    def __init__(
-        self,
-        llm: LLM,
-    ) -> None:
+    def __init__(self, llm: LLM) -> None:
         self._llm: LLM = llm
 
     def generate_sub_guidelines(
@@ -19,33 +17,26 @@ class GuidelineGenerator:
             original=guideline, decomposed=response.final_answer, steps=response.steps
         )
 
-    def _format_guideline(self, guideline: Guideline) -> str:
-        parts: list[str] = ["--Full guideline--"]
-        if guideline.short:
-            parts.append(f"Short description: {guideline.short}")
-        if guideline.long:
-            parts.append(f"Long description: {guideline.long}")
-        if guideline.context:
-            parts.append(f"Context: {guideline.context}")
-
-        return "\n".join(parts)
-
-    def _format_few_shot(self, example: FewShotExample) -> str:
-        parts: list[str] = []
-        parts.append(f"Input: {example.input}")
-        parts.append("Output:")
-        # Add each output line
-        parts.extend(example.output)
-
-        return "\n".join(parts)
+    def _guideline_for_prompt(self, guideline: Guideline) -> dict[str, str]:
+        g = guideline.model_dump()
+        g_prompt: dict[str, str] = {}
+        if g["short"]:
+            g_prompt["short_description"] = g["short"]
+        if g["long"]:
+            g_prompt["long_description"] = g["long"]
+        if g["context"]:
+            g_prompt["context"] = g["context"]
+        return g_prompt
 
     def _format_prompt(
         self, guideline: Guideline, examples: list[FewShotExample]
     ) -> str:
-        parts: list[str] = [self._format_guideline(guideline)]
+        # Combine the guideline and examples into one dictionary
 
-        parts.append("--Few-shot example(s)--")
-        for example in examples:
-            parts.append(self._format_few_shot(example))
-
-        return "\n".join(parts)
+        prompt_dict = {
+            "guideline": self._guideline_for_prompt(guideline),
+            "examples": [example.model_dump() for example in examples],
+        }
+        # Convert the dictionary to a JSON string
+        print(json.dumps(prompt_dict, indent=2))
+        return json.dumps(prompt_dict, indent=2)
