@@ -7,3 +7,8 @@ class Guideline(BaseModel):
     long: str | None
     level: str | None
     context: str | None
+
+
+class DecomposedGuideline(BaseModel):
+    original: Guideline
+    decomposed: list[str]

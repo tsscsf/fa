@@ -1,7 +1,7 @@
 from frameworks.framework import Framework
 from llm.llm import LLM
 from models.few_shot import FewShotExample
-from models.guideline import Guideline
+from models.guideline import DecomposedGuideline, Guideline
 
 
 class Composer:
@@ -9,11 +9,13 @@ class Composer:
         self._framework: Framework = framework
         self._llm: LLM = llm
 
-    def generate_sub_guidelines(self) -> None:
+    def generate_sub_guidelines(self) -> list[DecomposedGuideline]:
+        decomposed_guidelines: list[DecomposedGuideline] = []
         for g in self._framework.guidelines():
             prompt: str = self.format_prompt(guideline=g, examples=self._framework.few_shots())
-            print(prompt)
-            break
+            response: list[str] = self._llm.prompt(prompt)
+            decomposed_guidelines.append(DecomposedGuideline(original=g, decomposed=response))
+        return decomposed_guidelines
 
     def _format_guideline(self, guideline: Guideline) -> str:
         parts: list[str] = ["--Full guideline--"]

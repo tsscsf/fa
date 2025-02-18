@@ -26,7 +26,7 @@ class LLM:
         self.system_prompt: str = DEFAULT_SYSTEM_PROMPT
         self.response_format = DEFAULT_RESPONSE_FORMAT  # pyright: ignore[reportUnannotatedClassAttribute]
 
-    def prompt(self, prompt: str) -> LLMResponse:
+    def prompt(self, prompt: str) -> list[str]:
         messages: Iterable[ChatCompletionMessageParam] = [
             {"role": "system", "content": self.system_prompt},
             {"role": "user", "content": prompt},
@@ -39,7 +39,8 @@ class LLM:
         )
         # Extract the parsed data from the first choice's message
         parsed_data: LLMResponse | None = parsed_response.choices[0].message.parsed
-
+        
         # Validate and load it into your LLMResponse pydantic model
         validated_response: LLMResponse = LLMResponse.model_validate(parsed_data)
-        return validated_response
+
+        return validated_response.final_answer
