@@ -41,7 +41,7 @@ class GuidelineGenerator:
         # Combine the guideline and examples into one dictionary
 
         prompt_dict = {
-            "guideline": self._guideline_for_prompt(guideline),
+            "guideline": self._guideline_for_prompt(guideline).model_dump(),
             "examples": [example.model_dump() for example in examples],
         }
         # Convert the dictionary to a JSON string
