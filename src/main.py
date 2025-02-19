@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from frameworks.framework import Framework
 from frameworks.s2c2f.s2c2f import S2C2F
 from frameworks.scvs.scvs import SCVS
+from frameworks.sok.sok import SoK
 from guideline_generator.guideline_generator import GuidelineGenerator
 from llm.llm import LLM
 from models.guideline import DecomposedGuideline
@@ -35,8 +36,10 @@ def main():
     llm = LLM(client)
     gg = GuidelineGenerator(llm)
     s2c2f = S2C2F()
+    sok = SoK()
 
-    decompose(s2c2f, gg)
+    # decompose(s2c2f, gg)
+    decompose(sok, gg)
     # decompose(scvs, gg)
 
 
