@@ -11,10 +11,10 @@ type SafeguardsData = list[dict[str, str | list[dict[str, str | bool]]]]
 
 class SoK(Framework):
     def __init__(self) -> None:
-        super().__init__()
         with open(SAFEGUARDS_FILE_PATH) as f:
             data: SafeguardsData = json.load(f)
             self._guidelines: list[Guideline] = self._load_guidelines(data)
+        super().__init__()
 
     def _load_guidelines(self, fc: SafeguardsData) -> list[Guideline]:
         guidelines: list[Guideline] = []
