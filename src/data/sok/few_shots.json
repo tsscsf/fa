@@ -24,5 +24,17 @@
       "Downstream users can inspect the SBOMs to check license compliance",
       "Downstream users can inspect the SBOMs to check known vulnerabilities"
     ]
+  },
+  {
+    "input": {
+      "short_description": "Application Security Testing (AST)",
+      "long_description": "<p>Application Security Testing consists of a process of performing security tests on applications to identify possible vulnerabilities, weaknesses, or malicious code. Such Application Security Tests may happen in three different ways:<ul>  <li>Static Application Security Testing (SAST), is a testing methodology that analyzes and scan an application without running it. Hence, this process is also known as White Box Testing, since analyses the inner structure of an application.</li> <li>Dynamic Application Security Testing (DAST), is a testing methodology that uses a Black Box Testing approach, conducting an assessment without accessing the application source code. Instead, the DAST attempt to capture the application behavior by running it in a secured environment (e.g., an instructed sandbox).</li> <li> The Interactive Application Security Testing (IAST) uses a Grey Box Testing approach, combining the functionalities of both SAST and DAST. In particular, an IAST tool occurs in real-time while the application is running  (like DAST), checking in parallel the source code (like SAST). The source code check happens at the post-build stage, while the pure SAST approach occurs before the code has been built. Finally, the IAST tool will report the line number of the issue from the source code during the execution of the application. </li> </ul> In the same fashion as the manual source code review, in the case of the Open-Source Software Supply Chain, the Application Security Testing should target all the direct and indirect dependencies, to make sure that no malicious code has been injected or executed.</p> Administrator can employ application security testing techniques or tools to scan the consumed open-source components, in order to assess the security requirements at each step of the supply chain. Downstream users can employ application security testing techniques or tools to scan the consumed open-source components, in order to assess the security requirements at each step of the supply chain."
+    },
+    "output": [
+      "Administrator can employ application security testing techniques to scan the consumed open-source components at each step of the supply chain",
+      "Administrator can employ application security testing tools to scan the consumed open-source components at each step of the supply chain",
+      "Downstream users can employ application security testing techniques to scan the consumed open-source components at each step of the supply chain",
+      "Downstream users can employ application security testing tools to scan the consumed open-source components at each step of the supply chain"
+    ]
   }
 ]
