@@ -1,0 +1,28 @@
+[
+  {
+    "input": {
+      "short_description": "Software Bill of Materials (SBOM)",
+      "long_description": "A Software Bill of Materials (SBOM) is a list of components related to a given software artifact, comparable to the list of ingredients on food packaging. Those components are typically runtime dependencies of the artifact in question, but can also comprise other dependency types. The content and properties of SBOMs decide about use-cases and capabilities, esp. the kind of verifications that can be exercised by downstream consumers. For instance, SBOMs can be machine-readable, timestamped and signed, whereas individual dependencies can be identified using consistent naming schemes and digests, and described in regard to provenance and pedigree. The creation of SBOMs can be automated. SPDX, CycloneDX, and SWID are prominent machine-readable standards and formats for SBOMs.\n Project Maintainers can produce and distribute SBOMs as to support downstream consumers in activities such as verification, vulnerability management or license compliance. Service providers of package repositories or distribution sites can verify, publish and analyze SBOMs on their end to support downstream users in the selection of components. Downstream users can demand SBOMs for new procurements, inspect and analyze the SBOMs to check provenance, license compliance, known vulnerabilities, etc."
+    },
+    "output": [
+      "SBOM can be machine-readable",
+      "SBOM can be timestamped",
+      "SBOM can be signed",
+      "Individual dependencies can be identified using consistent naming schemes",
+      "Individual dependencies can be described in regard to provenance",
+      "Individual dependencies can be described in regard to pedigree",
+      "The creation of SBOMs can be automated",
+      "Project Maintainers can produce and distribute SBOMs",
+      "Service providers of package repositories can verify SBOMs",
+      "Service providers of package repositories can publish SBOMs",
+      "Service providers of package repositories can analyze SBOMs",
+      "Distribution sites can verify SBOMs",
+      "Distribution sites can publish SBOMs",
+      "Distribution sites can analyze SBOMs",
+      "Downstream users can demand SBOMs for new procurements",
+      "Downstream users can inspect the SBOMs to check provenance",
+      "Downstream users can inspect the SBOMs to check license compliance",
+      "Downstream users can inspect the SBOMs to check known vulnerabilities"
+    ]
+  }
+]
