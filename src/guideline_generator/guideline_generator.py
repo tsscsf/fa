@@ -13,19 +13,17 @@ class GuidelineGenerator:
     def generate_sub_guidelines(
         self, guideline: Guideline, few_shots: list[FewShotExample]
     ) -> DecomposedGuideline:
-        self._llm.system_prompt = "Decompose this text into granular sub guidelines. List only actionable statements."
+        self._llm.system_prompt = "Decompose the given statements into granular, standalone sub-guidelines. Only decompose statements that can be actionable. If a guideline is already a single statement, retain it unchanged. Do not infer any information that is not present in the original statement. It should be possible to read as sub guideline as a standalone statement without any additional context required. Keep all information and make sure that each sub statement do not change the meaning of the original statement."
+        # self._llm.system_prompt = "Decompose short_description and long_description into granular sub-guidelines. Keep only actionable statements—what to do, not how to do it. Keep single actionable statements unchanged. Ignore non-actionable statements. Each guideline should be read as a standalone statement without any context required."
         prompt: str = self._format_prompt(guideline=guideline, examples=few_shots)
         response = self._llm.prompt(prompt)
-        all_steps = response.steps
 
-        self._llm.system_prompt = "Decompose these statements into sub-statements, for instance 'it is cloudy and sunny' -> 'it is cloudy', 'it is sunny', keep all information and make sure that they do not change the meaning of the statement. They should be read as standalone statements without any context"
-        prompt = "\n".join(response.final_answer)
-        response = self._llm.prompt(prompt)
-
-        all_steps.extend(response.steps)
+        # # self._llm.system_prompt = "Decompose the list of statements if they can be turned into sub statements. If not, keep the statement as it is. Keep all information and make sure that each sub statement do not change the meaning of the original statement. Each sub statement should be possible to read as a standalone statement without any additional context required. Do not infer any information that is not present in the original statement."
+        # prompt = "\n".join(response.final_answer)
+        # response = self._llm.prompt(prompt)
 
         return DecomposedGuideline(
-            original=guideline, decomposed=response.final_answer, steps=all_steps
+            original=guideline, decomposed=response.final_answer, steps=[]
         )
 
     def _guideline_for_prompt(self, guideline: Guideline) -> PromptInput:
