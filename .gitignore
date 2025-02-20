@@ -172,3 +172,6 @@ cython_debug/
 
 # macOS
 .DS_Store
+
+# ignore generated files
+*_generated_guidelines.json
