@@ -7,16 +7,6 @@ from openai.types.chat.parsed_chat_completion import ParsedChatCompletion
 
 from models.llm_response import LLMResponse
 
-DEFAULT_SYSTEM_PROMPT = """
-You are a guideline decomposition assistant. Your task is to take a given guideline that may contain compound statements or multiple components and break it down into smaller, independent guidelines. Follow these steps:
-
-1. **Analyze the Guideline:** Read the input guideline carefully and identify any compound phrases, conjunctions (like "and", "or", "and/or"), or lists that combine multiple ideas.
-2. **Decompose Step-by-Step:** Split the guideline into its individual parts, ensuring that each resulting statement clearly represents a single idea or requirement.
-3. **Preserve Meaning:** Make sure that each decomposed guideline retains the intent and meaning of the original statement. Do not decompose guidelines if it leads to loss of context or changes the original meaning.
-4. **Format the Output:** List each individual guideline on a separate line.
-
-Let's think step by step...
-"""
 DEFAULT_RESPONSE_FORMAT = LLMResponse
 
 
@@ -25,16 +15,14 @@ class LLM:
         self,
         client: openai.OpenAI,
         model: str = "meta-llama/Llama-3.3-70B-Instruct",
-        system_prompt: str = DEFAULT_SYSTEM_PROMPT,
     ):
         self._model: str = model
         self._client: openai.OpenAI = client
-        self.system_prompt: str = system_prompt
         self.response_format = DEFAULT_RESPONSE_FORMAT  # pyright: ignore[reportUnannotatedClassAttribute]
 
-    def _prompt_gpt(self, prompt: str) -> LLMResponse:
+    def _prompt_gpt(self, prompt: str, system_prompt: str) -> LLMResponse:
         messages: Iterable[ChatCompletionMessageParam] = [
-            {"role": "system", "content": self.system_prompt},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": prompt},
         ]
 
@@ -51,9 +39,9 @@ class LLM:
 
         return validated_response
 
-    def _prompt_other(self, prompt: str) -> LLMResponse:
+    def _prompt_other(self, prompt: str, system_prompt: str) -> LLMResponse:
         messages: Iterable[ChatCompletionMessageParam] = [
-            {"role": "system", "content": self.system_prompt},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": prompt},
         ]
 
@@ -73,8 +61,8 @@ class LLM:
 
         return validated_response
 
-    def prompt(self, prompt: str) -> LLMResponse:
+    def prompt(self, prompt: str, system_prompt: str) -> LLMResponse:
         if "gpt" in self._model.lower():
-            return self._prompt_gpt(prompt)
+            return self._prompt_gpt(prompt, system_prompt)
         else:
-            return self._prompt_other(prompt)
+            return self._prompt_other(prompt, system_prompt)

@@ -6,6 +6,15 @@ from models.guideline import Guideline
 FEW_SHOTS_FILE_PATH = "data/microsoft-s2c2f/few_shots.json"
 
 
+SYSTEM_PROMPTS = [
+    """
+You are a guideline decomposition assistant. Your task is to take a given guideline that may contain compound statements or multiple components and break it down into smaller, independent guidelines. Keep all original meanings and intents intact. The decomposed guidelines should be independent and self-contained. Do not infer information that is not explicitly stated in the original text.
+
+Let's think step by step...
+    """
+]
+
+
 class S2C2F(Framework):
     def __init__(self) -> None:
         self._few_shot_file_path: str = FEW_SHOTS_FILE_PATH
@@ -73,3 +82,8 @@ class S2C2F(Framework):
     @override
     def name(self) -> str:
         return "microsoft-s2c2f"
+
+    @property
+    @override
+    def system_prompt(self) -> list[str]:
+        return SYSTEM_PROMPTS

@@ -33,3 +33,8 @@ class Framework(ABC):
     @abstractmethod
     def name(self) -> str:
         pass
+
+    @property
+    @abstractmethod
+    def system_prompt(self) -> list[str]:
+        pass

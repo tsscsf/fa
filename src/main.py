@@ -28,7 +28,9 @@ def decompose(framework: Framework, gg: GuidelineGenerator):
     decomposed_guidelines: list[DecomposedGuideline] = []
     date = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     for g in framework.guidelines():
-        decomposed_guideline = gg.generate_sub_guidelines(g, framework.few_shots())
+        decomposed_guideline = gg.generate_sub_guidelines(
+            g, framework.few_shots(), framework.system_prompt
+        )
         decomposed_guidelines.append(decomposed_guideline)
         store_generated_guidelines(framework.name, decomposed_guidelines, date)
 

@@ -6,6 +6,17 @@ from models.guideline import Guideline
 
 FEW_SHOTS_FILE_PATH = "data/sok/few_shots.json"
 SAFEGUARDS_FILE_PATH = "data/sok/safeguards.json"
+SYSTEM_PROMPT_1 = """
+You are an actionable guideline decomposition assistant. The decomposed guidelines should be independent and self-contained. Only include information that can be applied, do not include facts or definitions. Your task is to take a given guideline that may contain compound statements or multiple components and break it down into smaller, independent guidelines if possible. Keep all original meanings and intents intact. Do not infer information that is not explicitly stated in the original text.
+
+Let's think step by step...
+"""
+
+SYSTEM_PROMPT_2 = """
+You are a guideline decomposition assistant. You are given a list of guidelines that may contain compound statements or multiple components. Your task is to break down the guidelines into smaller, independent guidelines if possible while keeping all original meanings and intents intact. The decomposed guidelines should be independent and self-contained. Do not infer information that is not explicitly stated in the original text.
+
+Let's think step by step...
+"""
 type SafeguardsData = list[dict[str, str | list[dict[str, str | bool]]]]
 
 
@@ -54,3 +65,8 @@ class SoK(Framework):
     @override
     def name(self) -> str:
         return "sok"
+
+    @property
+    @override
+    def system_prompt(self) -> list[str]:
+        return [SYSTEM_PROMPT_1, SYSTEM_PROMPT_2]

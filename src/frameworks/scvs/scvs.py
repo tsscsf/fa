@@ -9,6 +9,13 @@ FEW_SHOTS = {}
 
 DATA_FILE_PATH = "data/owasp-scvs/OWASP_SCVS-1.0.csv"
 FEW_SHOTS_FILE_PATH = "data/owasp-scvs/few_shots.json"
+SYSTEM_PROMPTS = [
+    """
+You are a guideline decomposition assistant. Your task is to take a given guideline that may contain compound statements or multiple components and break it down into smaller, independent guidelines. Keep all original meanings and intents intact. The decomposed guidelines should be independent and self-contained. Only include information that is explicitly stated in the original text.
+
+Let's think step by step...
+    """
+]
 
 
 class SCVS(Framework):
@@ -72,3 +79,8 @@ class SCVS(Framework):
     @override
     def name(self) -> str:
         return "owasp-scvs"
+
+    @property
+    @override
+    def system_prompt(self) -> list[str]:
+        return SYSTEM_PROMPTS
