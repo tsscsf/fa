@@ -1,5 +1,6 @@
 import datetime
 import json
+import os
 
 import openai
 from dotenv import load_dotenv
@@ -34,15 +35,15 @@ def decompose(framework: Framework, gg: GuidelineGenerator):
 
 def main():
     scvs = SCVS()
-    client = openai.OpenAI()
+    client = openai.OpenAI(base_url=os.environ.get("OPENAI_API_BASE", None))
     llm = LLM(client)
     gg = GuidelineGenerator(llm)
     s2c2f = S2C2F()
     sok = SoK()
 
     # decompose(s2c2f, gg)
-    decompose(sok, gg)
-    # decompose(scvs, gg)
+    # decompose(sok, gg)
+    decompose(scvs, gg)
 
 
 if __name__ == "__main__":
