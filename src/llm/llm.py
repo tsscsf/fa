@@ -1,7 +1,8 @@
+import json
 from collections.abc import Iterable
 
 import openai
-from openai.types.chat import ChatCompletionMessageParam
+from openai.types.chat import ChatCompletion, ChatCompletionMessageParam
 from openai.types.chat.parsed_chat_completion import ParsedChatCompletion
 
 from models.llm_response import LLMResponse
