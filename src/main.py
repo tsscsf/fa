@@ -1,3 +1,4 @@
+import datetime
 import json
 
 import openai
@@ -15,19 +16,20 @@ load_dotenv()  # pyright: ignore[reportUnusedCallResult]
 
 
 def store_generated_guidelines(
-    framework: str, guidelines: list[DecomposedGuideline]
+    framework: str, guidelines: list[DecomposedGuideline], date: str
 ) -> None:
     decomposed_guidelines = [g.model_dump() for g in guidelines]
-    with open(f"data/{framework}/generated_guidelines.json", "w") as f:
+    with open(f"data/{framework}/{date}_generated_guidelines.json", "w") as f:
         json.dump(decomposed_guidelines, f, indent=4)
 
 
 def decompose(framework: Framework, gg: GuidelineGenerator):
     decomposed_guidelines: list[DecomposedGuideline] = []
+    date = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     for g in framework.guidelines():
         decomposed_guideline = gg.generate_sub_guidelines(g, framework.few_shots())
         decomposed_guidelines.append(decomposed_guideline)
-        store_generated_guidelines(framework.name, decomposed_guidelines)
+        store_generated_guidelines(framework.name, decomposed_guidelines, date)
 
 
 def main():

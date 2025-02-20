@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "input": {
+      "short_description": "Generate architecture and design documents",
+      "long_description": "Architecture and design documents should be based on customer and marketing requirements that have been gathered, correlated, and prioritized. Specific security-related assessments and reliability criteria derived from operational customer environments and known product risk assessments should be included in the requirements. The requirements should take into account security criteria for specific industries such as NIAP, FedRAMP, HIPAA, or FIPS-140 and that are based on Zero Trust principles. Architecture and design documents should address all requirements defined and describe the components, interfaces used, and functionality needed to implement the product in various levels of detail based on the needs of the development group."
+    },
+    "output": [
+      "Generate architecture documents",
+      "Generate design documents",
+      "Architecture documents should be based on customer requirements that have been gathered.",
+      "Architecture documents should be based on customer requirements that have been correlated.",
+      "Architecture documents should be based on customer requirements that have been prioritized.",
+      "Architecture documents should be based on marketing requirements that have been gathered.",
+      "Architecture documents should be based on marketing requirements that have been correlated.",
+      "Architecture documents should be based on marketing requirements that have been prioritized.",
+      "Design documents should be based on customer requirements that have been gathered.",
+      "Design documents should be based on customer requirements that have been correlated.",
+      "Design documents should be based on customer requirements that have been prioritized.",
+      "Design documents should be based on marketing requirements that have been gathered.",
+      "Design documents should be based on marketing requirements that have been correlated.",
+      "Design documents should be based on marketing requirements that have been prioritized.",
+      "Specific security-related assessments should be included in the requirements.",
+      "Reliability criteria derived from operational customer environments should be included in the requirements.",
+      "Reliability criteria derived from known product risk assessments should be included in the requirements.",
+      "The requirements should take into account security criteria for NIAP.",
+      "The requirements should take into account security criteria for FedRAMP.",
+      "The requirements should take into account security criteria for HIPAA.",
+      "The requirements should take into account security criteria for FIPS-140.",
+      "The requirements should take into account security criteria that are based on Zero Trust principles.",
+      "Architecture documents should address all requirements defined.",
+      "Design documents should address all requirements defined.",
+      "Architecture documents should describe the components needed to implement the product.",
+      "Design documents should describe the components needed to implement the product.",
+      "Architecture documents should describe the interfaces used to implement the product.",
+      "Design documents should describe the interfaces used to implement the product.",
+      "Architecture documents should describe the functionality needed to implement the product.",
+      "Design documents should describe the functionality needed to implement the product.",
+      "Architecture documents should describe the components needed to implement the product in various levels of detail based on the needs of the development group.",
+      "Design documents should describe the components needed to implement the product in various levels of detail based on the needs of the development group.",
+      "Architecture documents should describe the interfaces used to implement the product in various levels of detail based on the needs of the development group.",
+      "Design documents should describe the interfaces used to implement the product in various levels of detail based on the needs of the development group.",
+      "Architecture documents should describe the functionality needed to implement the product in various levels of detail based on the needs of the development group.",
+      "Design documents should describe the functionality needed to implement the product in various levels of detail based on the needs of the development group."
+    ]
+  }
+]
